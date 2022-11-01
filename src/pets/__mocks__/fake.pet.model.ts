@@ -4,7 +4,7 @@ import { fakeId, fakePetData, updatedPet } from "./fake.pet.data";
 
 export const fakePetModel = {
   find: () => Promise.resolve(fakePetData),
-  findId: () => Promise.resolve(fakePetData[0]),
+  findById: () => Promise.resolve(fakePetData[0]),
   create: () => Promise.resolve(fakePetData[0]),
   findByIdAndUpdate: () => Promise.resolve(updatedPet),
   findByIdAndDelete: () => Promise.resolve(fakePetData[0]),

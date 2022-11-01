@@ -32,7 +32,34 @@ describe("PetRepository", () => {
       expect(pet).toEqual({});
     });
   });
-  describe("create", () => {});
-  describe("update", () => {});
-  describe("delete", () => {});
+  describe("create", () => {
+    it("should create a pet", async () => {
+      const newPet = await petRepository.create(fakePetData[0]);
+      expect(newPet).toEqual(fakePetData[0]);
+    });
+  });
+  describe("update", () => {
+    it("should update a pet", async () => {
+      const pet = await petRepository.update(fakeId, fakePetData[0]);
+      expect(pet).toEqual(updatedPet);
+    });
+    it("should return an empty object", async () => {
+      jest.spyOn(fakePetModel, "findByIdAndUpdate").mockResolvedValueOnce(null);
+
+      const pet = await petRepository.update(fakeId, fakePetData[0]);
+      expect(pet).toEqual({});
+    });
+  });
+  describe("delete", () => {
+    it("should delete a pet", async () => {
+      const pet = await petRepository.delete(fakeId);
+      expect(pet).toEqual(fakePetData[0]);
+    });
+    it("should return an empty object", async () => {
+      jest.spyOn(fakePetModel, "findByIdAndDelete").mockResolvedValueOnce(null);
+
+      const pet = await petRepository.delete(fakeId);
+      expect(pet).toEqual({});
+    });
+  });
 });
