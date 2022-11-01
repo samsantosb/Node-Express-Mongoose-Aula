@@ -47,5 +47,3 @@ export class PetRepository {
     return deletedPet;
   }
 }
-
-const petRepository = new PetRepository(PetModel);

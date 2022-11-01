@@ -15,6 +15,7 @@ Quando vamos tipar uma bibilioteca de terceeiros, com tipos muito complexos
 caso isso venha a atrapalhar o desenvolvimento, podemos usar o unknown
 
 as unknown as Model<Pet>
+as unknown as CustomType
 
 unkown é desconhecido
 
