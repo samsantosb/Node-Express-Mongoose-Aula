@@ -20,6 +20,8 @@ export class PetService {
   }
 
   async getById(id: string): Promise<Pet | CustomErrors> {
+    //Type.ObjectId.isValid() checa se o id é um ObjectId válido
+    //ele retorna um boolean, dessa forma, tratamos erros de ID inválido
     if (!Types.ObjectId.isValid(id)) {
       return invalidIdError(id);
     }

@@ -24,8 +24,7 @@ export type InvalidIdError = {
 export function invalidIdError(id: string): InvalidIdError {
   return {
     invalidIdError: {
-      message: `invalid id on request, please submit a ObjectId
-      example: 5f9f5c9c9c9c9c9c9c9c9c9c`,
+      message: "invalid id on request, please submit a ObjectId",
       id: id,
     },
   };

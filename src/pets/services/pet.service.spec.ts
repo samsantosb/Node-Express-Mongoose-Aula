@@ -64,6 +64,7 @@ describe("PetService", () => {
       expect(error).toEqual(invalidIdError("invalidId"));
     });
   });
+
   describe("create", () => {
     it("should call Repository.create", async () => {
       const spy = jest.spyOn(fakePetRepository, "create");
@@ -85,10 +86,56 @@ describe("PetService", () => {
       });
     });
   });
+
   describe("update", () => {
-    //o test se parece com o do create e com o do getById
+    it("should call Repository.update", async () => {
+      const spy = jest.spyOn(fakePetRepository, "update");
+      await petService.update(fakeId, updatedPet);
+      expect(spy).toHaveBeenCalled();
+    });
+    it("should return a pet", async () => {
+      const pet = await petService.update(fakeId, updatedPet);
+      expect(pet).toEqual(updatedPet);
+    });
+    it("should return an promiseError", async () => {
+      jest.spyOn(fakePetRepository, "update").mockRejectedValueOnce("Error");
+      const error = await petService.update(fakeId, updatedPet);
+      expect(error).toEqual({
+        promiseError: {
+          message: "unable to request the Database",
+          error: "Error",
+        },
+      });
+    });
+
+    it("should return a invalidIdError", async () => {
+      const error = await petService.update("invalidId", updatedPet);
+      expect(error).toEqual(invalidIdError("invalidId"));
+    });
   });
   describe("delete", () => {
-    //é muito aprecido com o getById
+    it("should call Repository.delete", async () => {
+      const spy = jest.spyOn(fakePetRepository, "delete");
+      await petService.delete(fakeId);
+      expect(spy).toHaveBeenCalled();
+    });
+    it("should return a pet", async () => {
+      const pet = await petService.delete(fakeId);
+      expect(pet).toEqual(fakePetData[0]);
+    });
+    it("should return an promiseError", async () => {
+      jest.spyOn(fakePetRepository, "delete").mockRejectedValueOnce("Error");
+      const error = await petService.delete(fakeId);
+      expect(error).toEqual({
+        promiseError: {
+          message: "unable to request the Database",
+          error: "Error",
+        },
+      });
+    });
+    it("should return a invalidIdError", async () => {
+      const error = await petService.delete("invalidId");
+      expect(error).toEqual(invalidIdError("invalidId"));
+    });
   });
 });

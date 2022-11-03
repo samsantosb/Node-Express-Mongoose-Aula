@@ -20,5 +20,23 @@ describe("error.handler", () => {
       });
     });
   });
-  describe("invalidIdError", () => {});
+  describe("invalidIdError", () => {
+    it("should be defined", () => {
+      const error = invalidIdError("invalidId");
+      expect(error).toBeDefined();
+    });
+    it("should return an object with a invalidIdError property", () => {
+      const error = invalidIdError("invalidId");
+      expect(error.invalidIdError).toBeDefined();
+    });
+    it("should return an object with a invalidIdError property with a message property", () => {
+      const error = invalidIdError("invalidId");
+      expect(error).toEqual({
+        invalidIdError: {
+          message: "invalid id on request, please submit a ObjectId",
+          id: "invalidId",
+        },
+      });
+    });
+  });
 });
