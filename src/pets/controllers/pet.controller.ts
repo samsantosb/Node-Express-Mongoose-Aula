@@ -65,5 +65,19 @@ export class PetController {
     return res.status(StatusCode.OK).json(result);
   }
 
-  async delete(req: Request, res: Response) {}
+  async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const result = await this.petService.delete(id);
+
+    if ("invalidIdError" in result) {
+      return res.status(StatusCode.BAD_REQUEST).json(result);
+    }
+
+    if ("promiseError" in result) {
+      return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);
+    }
+
+    return res.status(StatusCode.OK).json(result);
+  }
 }

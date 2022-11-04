@@ -124,6 +124,7 @@ describe("PetService", () => {
       expect(pet).toEqual(fakePetData[0]);
     });
     it("should return an promiseError", async () => {
+      //equivalente ao Promise.Reject
       jest.spyOn(fakePetRepository, "delete").mockRejectedValueOnce("Error");
       const error = await petService.delete(fakeId);
       expect(error).toEqual({
