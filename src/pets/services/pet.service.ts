@@ -5,7 +5,7 @@ import {
   invalidIdError,
   promiseError,
 } from "../../utils/error.handler";
-import { Types } from "mongoose";
+import { isIdValid } from "../../utils/id.validator";
 
 export class PetService {
   constructor(private readonly petRepository: PetRepository) {}
@@ -22,7 +22,7 @@ export class PetService {
   async getById(id: string): Promise<Pet | CustomErrors> {
     //Type.ObjectId.isValid() checa se o id é um ObjectId válido
     //ele retorna um boolean, dessa forma, tratamos erros de ID inválido
-    if (!Types.ObjectId.isValid(id)) {
+    if (!isIdValid(id)) {
       return invalidIdError(id);
     }
 
@@ -44,7 +44,7 @@ export class PetService {
   }
 
   async update(id: string, pet: Pet): Promise<Pet | CustomErrors> {
-    if (!Types.ObjectId.isValid(id)) {
+    if (!isIdValid(id)) {
       return invalidIdError(id);
     }
 
@@ -57,7 +57,7 @@ export class PetService {
   }
 
   async delete(id: string): Promise<Pet | CustomErrors> {
-    if (!Types.ObjectId.isValid(id)) {
+    if (!isIdValid(id)) {
       return invalidIdError(id);
     }
 

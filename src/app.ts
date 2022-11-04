@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
-import { mongoConnect } from "./db/mongo.connection";
+import { mongoConnection } from "./db/mongo.connection";
 import petsRoutes from "./pets/routes/pet.routes";
 
-mongoConnect();
+mongoConnection();
 const app = express();
 app.use(express.json());
 app.use("/users", petsRoutes);
