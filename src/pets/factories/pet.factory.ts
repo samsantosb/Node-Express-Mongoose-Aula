@@ -7,6 +7,7 @@ export function petFactory() {
   const petsRepository = new PetRepository(PetModel);
   const petsService = new PetService(petsRepository);
   const petsController = new PetController(petsService);
+
   return petsController;
 }
 

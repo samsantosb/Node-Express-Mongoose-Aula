@@ -17,16 +17,18 @@ export class PetController {
   }
 
   async getById(req: Request, res: Response) {
+    //req.params refere-se a um parâmetro de rota
+    //exemplo: /pets/:id -> wwww.pets.com/pets/123 -> req.params.id = 123
     const { id } = req.params;
 
     const result = await this.petService.getById(id);
 
-    if ("promiseError" in result) {
-      return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);
-    }
-
     if ("invalidIdError" in result) {
       return res.status(StatusCode.BAD_REQUEST).json(result);
+    }
+
+    if ("promiseError" in result) {
+      return res.status(StatusCode.INTERNAL_SERVER_ERROR).json(result);
     }
 
     return res.status(StatusCode.OK).json(result);
@@ -34,6 +36,8 @@ export class PetController {
 
   async create(req: Request, res: Response) {
     const { body } = req;
+
+    //é uma linha tradicional de validação de dados
 
     const result = await this.petService.create(body);
 
