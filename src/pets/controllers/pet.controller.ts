@@ -1,6 +1,8 @@
 import { PetService } from "../services/pet.service";
 import { StatusCode } from "../../utils/status.code";
 import { Request, Response } from "express";
+import { invalidBody } from "../utils/pet.body.validator";
+import { invalidBodyError } from "../../utils/error.handler";
 
 export class PetController {
   constructor(private readonly petService: PetService) {}
@@ -35,6 +37,10 @@ export class PetController {
   }
 
   async create(req: Request, res: Response) {
+    if (invalidBody(req)) {
+      res.status(StatusCode.BAD_REQUEST).json(invalidBodyError(req.body));
+      return;
+    }
     const { body } = req;
 
     //é uma linha tradicional de validação de dados
@@ -52,6 +58,10 @@ export class PetController {
     // req.body -> Body/JSON
     // req.params -> URL Params
     // req.query  -> Query Params
+    if (invalidBody(req)) {
+      res.status(StatusCode.BAD_REQUEST).json(invalidBodyError(req.body));
+      return;
+    }
 
     const { id } = req.params;
     const { body } = req;
